@@ -1,0 +1,55 @@
+{
+  "name": "shush-mcp",
+  "version": "0.1.0",
+  "description": "Cut the noise from command output before it reaches your AI agent: passing tests, progress bars, install logs, git chatter. Errors always kept, full output one call away. CLI + MCP server, works with any agent.",
+  "type": "module",
+  "bin": {
+    "shush": "dist/cli.js"
+  },
+  "main": "dist/compress.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p . && node -e \"require('fs').chmodSync('dist/cli.js',0o755)\"",
+    "test": "vitest run",
+    "bench": "node scripts/bench.mjs",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "llm",
+    "tokens",
+    "token-optimization",
+    "ai-agents",
+    "claude-code",
+    "cursor",
+    "cli",
+    "context-window"
+  ],
+  "author": "Celalettin Durğaç (https://github.com/celaldrg)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/celaldrg/shush.git"
+  },
+  "homepage": "https://github.com/celaldrg/shush#readme",
+  "bugs": {
+    "url": "https://github.com/celaldrg/shush/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "gpt-tokenizer": "^4.1.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.12"
+  }
+}

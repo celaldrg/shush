@@ -1,0 +1,89 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.5, pytest-9.1.1, pluggy-1.7.0 -- /tmp/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/fx/py
+collecting ... collected 45 items
+
+test_calc.py::test_square[0] PASSED                                      [  2%]
+test_calc.py::test_square[1] PASSED                                      [  4%]
+test_calc.py::test_square[2] PASSED                                      [  6%]
+test_calc.py::test_square[3] PASSED                                      [  8%]
+test_calc.py::test_square[4] PASSED                                      [ 11%]
+test_calc.py::test_square[5] PASSED                                      [ 13%]
+test_calc.py::test_square[6] PASSED                                      [ 15%]
+test_calc.py::test_square[7] PASSED                                      [ 17%]
+test_calc.py::test_square[8] PASSED                                      [ 20%]
+test_calc.py::test_square[9] PASSED                                      [ 22%]
+test_calc.py::test_square[10] PASSED                                     [ 24%]
+test_calc.py::test_square[11] PASSED                                     [ 26%]
+test_calc.py::test_square[12] PASSED                                     [ 28%]
+test_calc.py::test_square[13] PASSED                                     [ 31%]
+test_calc.py::test_square[14] PASSED                                     [ 33%]
+test_calc.py::test_square[15] PASSED                                     [ 35%]
+test_calc.py::test_square[16] PASSED                                     [ 37%]
+test_calc.py::test_square[17] PASSED                                     [ 40%]
+test_calc.py::test_square[18] PASSED                                     [ 42%]
+test_calc.py::test_square[19] PASSED                                     [ 44%]
+test_calc.py::test_square[20] PASSED                                     [ 46%]
+test_calc.py::test_square[21] PASSED                                     [ 48%]
+test_calc.py::test_square[22] PASSED                                     [ 51%]
+test_calc.py::test_square[23] PASSED                                     [ 53%]
+test_calc.py::test_square[24] PASSED                                     [ 55%]
+test_calc.py::test_square[25] PASSED                                     [ 57%]
+test_calc.py::test_square[26] PASSED                                     [ 60%]
+test_calc.py::test_square[27] PASSED                                     [ 62%]
+test_calc.py::test_square[28] PASSED                                     [ 64%]
+test_calc.py::test_square[29] PASSED                                     [ 66%]
+test_calc.py::test_square[30] PASSED                                     [ 68%]
+test_calc.py::test_square[31] PASSED                                     [ 71%]
+test_calc.py::test_square[32] PASSED                                     [ 73%]
+test_calc.py::test_square[33] PASSED                                     [ 75%]
+test_calc.py::test_square[34] PASSED                                     [ 77%]
+test_calc.py::test_square[35] PASSED                                     [ 80%]
+test_calc.py::test_square[36] PASSED                                     [ 82%]
+test_calc.py::test_square[37] PASSED                                     [ 84%]
+test_calc.py::test_square[38] PASSED                                     [ 86%]
+test_calc.py::test_square[39] PASSED                                     [ 88%]
+test_calc.py::test_slugify[Hello World-hello-world] PASSED               [ 91%]
+test_calc.py::test_slugify[  A  B -a-b] PASSED                           [ 93%]
+test_calc.py::test_slugify[\xc7ay Saati-cay-saati] FAILED                [ 95%]
+test_calc.py::test_parse_price PASSED                                    [ 97%]
+test_calc.py::test_parse_price_eur FAILED                                [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_slugify[\xc7ay Saati-cay-saati] _____________________
+
+s = 'Çay Saati', expected = 'cay-saati'
+
+    @pytest.mark.parametrize("s,expected", [("Hello World", "hello-world"), ("  A  B ", "a-b"), ("Çay Saati", "cay-saati")])
+    def test_slugify(s, expected):
+>       assert slugify(s) == expected
+E       AssertionError: assert 'çay-saati' == 'cay-saati'
+E         
+E         - cay-saati
+E         ? ^
+E         + çay-saati
+E         ? ^
+
+test_calc.py:15: AssertionError
+_____________________________ test_parse_price_eur _____________________________
+
+    def test_parse_price_eur():
+>       assert parse_price("€99") == 99.0
+               ^^^^^^^^^^^^^^^^^^
+
+test_calc.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = '€99'
+
+    def parse_price(s):
+>       return float(s.replace("$", "").replace(",", ""))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: could not convert string to float: '€99'
+
+test_calc.py:7: ValueError
+=========================== short test summary info ============================
+FAILED test_calc.py::test_slugify[\xc7ay Saati-cay-saati] - AssertionError: a...
+FAILED test_calc.py::test_parse_price_eur - ValueError: could not convert str...
+========================= 2 failed, 43 passed in 0.04s =========================

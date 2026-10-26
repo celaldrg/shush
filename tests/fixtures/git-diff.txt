@@ -1,0 +1,248 @@
+diff --git a/license b/license
+deleted file mode 100644
+index fa7ceba..0000000
+--- a/license
++++ /dev/null
+@@ -1,9 +0,0 @@
+-MIT License
+-
+-Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+-
+-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+-
+-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-
+-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+diff --git a/source/core/Ky.ts b/source/core/Ky.ts
+index 68e76a1..1ad1f96 100644
+--- a/source/core/Ky.ts
++++ b/source/core/Ky.ts
+@@ -31,7 +31,7 @@ import {
+ 	type MarkedSearchParameters,
+ } from '../utils/merge.js';
+ import {normalizeRequestMethod, normalizeRetryMethod, normalizeRetryOptions} from '../utils/normalize.js';
+-import timeout from '../utils/timeout.js';
++import timeoutMs from '../utils/timeoutMs.js';
+ import delay from '../utils/delay.js';
+ import {findUnknownOptions, hasSearchParameters} from '../utils/options.js';
+ import isRawNetworkError from '../utils/is-network-error.js';
+@@ -70,11 +70,11 @@ const getCurrentTime = (): number => globalThis.performance?.now() ?? Date.now()
+ const raceWithTimeout = <T>(promise: Promise<T>, milliseconds: number): Promise<T | typeof timedOut> => Promise.race([
+ 	promise,
+ 	new Promise<typeof timedOut>(resolve => {
+-		const timeoutId = setTimeout(() => {
++		const timeoutMsId = setTimeout(() => {
+ 			resolve(timedOut);
+ 		}, milliseconds);
+ 		void promise.finally(() => {
+-			clearTimeout(timeoutId);
++			clearTimeout(timeoutMsId);
+ 		}).catch(() => undefined);
+ 	}),
+ ]);
+@@ -198,8 +198,8 @@ const invalidSchemaMessage = 'The `schema` argument must follow the Standard Sch
+ const missingResponseMessage = 'The request resolved without a response, so there is no body to read.'
+ 	+ ' This happens when a `beforeRetry` hook returns `ky.stop`. Throw from the hook instead of returning `ky.stop`.';
+ 
+-// Both timeout options are milliseconds or `false`. A `NaN` or negative value used to reach `setTimeout()`, which silently clamps it to ~1ms, or to be ignored entirely when `totalTimeout` was not a number.
+-const validateTimeoutOption = (value: unknown, name: 'timeout' | 'totalTimeout'): void => {
++// Both timeoutMs options are milliseconds or `false`. A `NaN` or negative value used to reach `setTimeout()`, which silently clamps it to ~1ms, or to be ignored entirely when `totalTimeout` was not a number.
++const validateTimeoutOption = (value: unknown, name: 'timeoutMs' | 'totalTimeout'): void => {
+ 	if (value === false) {
+ 		return;
+ 	}
+@@ -215,7 +215,7 @@ const validateTimeoutOption = (value: unknown, name: 'timeout' | 'totalTimeout')
+ };
+ 
+ // Defaults only replace `undefined`, so a `null` reaches the validation and is reported instead of silently becoming the default.
+-const withAttemptDefaults = ({throwHttpErrors = true, timeout = 10_000, fetch = globalThis.fetch.bind(globalThis)}: Options) => ({throwHttpErrors, timeout, fetch});
++const withAttemptDefaults = ({throwHttpErrors = true, timeoutMs = 10_000, fetch = globalThis.fetch.bind(globalThis)}: Options) => ({throwHttpErrors, timeoutMs, fetch});
+ 
+ // These callbacks are called directly, so a non-function value otherwise surfaces as a runtime error naming Ky's own internals rather than the option the caller set.
+ const validateCallbackOptions = (options: Record<string, unknown>): void => {
+@@ -498,7 +498,7 @@ export class Ky {
+ 		};
+ 		// Checked here rather than on the way out, because the constructor already calls `stringifyJson`.
+ 		validateCallbackOptions(this.#options);
+-		validateTimeoutOption(this.#options.timeout, 'timeout');
++		validateTimeoutOption(this.#options.timeoutMs, 'timeoutMs');
+ 		validateTimeoutOption(totalTimeout, 'totalTimeout');
+ 		this.#retryLimit = this.#options.retry.limit;
+ 
+@@ -721,7 +721,7 @@ export class Ky {
+ 			shouldRetryOverride = result === true;
+ 		}
+ 
+-		// Default timeout behavior
++		// Default timeoutMs behavior
+ 		if (isTimeoutError(error)) {
+ 			if (!shouldRetryOverride && !retry.retryOnTimeout) {
+ 				throw error;
+@@ -824,7 +824,7 @@ export class Ky {
+ 			this.#throwIfTotalTimeoutExhausted(request);
+ 		};
+ 
+-		// Even with request timeouts disabled, bound error-body reads so retries and error propagation
++		// Even with request timeoutMss disabled, bound error-body reads so retries and error propagation
+ 		// cannot be stalled indefinitely by never-ending response streams.
+ 		const readTimeout = this.#getErrorDataTimeout(request);
+ 		const text = await readResponseText(response, readTimeout.milliseconds);
+@@ -853,7 +853,7 @@ export class Ky {
+ 	}
+ 
+ 	#getErrorDataTimeout(request: Request): ErrorDataTimeout {
+-		const errorDataTimeout = this.#options.timeout === false ? 10_000 : this.#options.timeout;
++		const errorDataTimeout = this.#options.timeoutMs === false ? 10_000 : this.#options.timeoutMs;
+ 		const remainingTotal = this.#getRemainingTotalTimeout();
+ 		if (remainingTotal === 0) {
+ 			throw new TimeoutError(request);
+@@ -865,24 +865,24 @@ export class Ky {
+ 		};
+ 	}
+ 
+-	// The smaller of `timeout` and the `totalTimeout` budget left, or `undefined` when neither applies, since `setTimeout()` cannot wait forever.
++	// The smaller of `timeoutMs` and the `totalTimeout` budget left, or `undefined` when neither applies, since `setTimeout()` cannot wait forever.
+ 	#getEffectiveTimeout(): number | undefined {
+ 		const remainingTotal = this.#getRemainingTotalTimeout();
+ 		if (remainingTotal === 0) {
+ 			throw new TimeoutError(this.#sentRequest);
+ 		}
+ 
+-		const effectiveTimeout = Math.min(this.#options.timeout === false ? Number.POSITIVE_INFINITY : this.#options.timeout, remainingTotal);
++		const effectiveTimeout = Math.min(this.#options.timeoutMs === false ? Number.POSITIVE_INFINITY : this.#options.timeoutMs, remainingTotal);
+ 		return effectiveTimeout === Number.POSITIVE_INFINITY ? undefined : effectiveTimeout;
+ 	}
+ 
+ 	// Unlike error bodies (`#getResponseData`), a successful body read has no fallback value to return -
+-	// the caller's `.json()`/`.text()`/etc. promise must settle, so a timeout here always rejects.
++	// the caller's `.json()`/`.text()`/etc. promise must settle, so a timeoutMs here always rejects.
+ 	async #raceBodyRead(createBodyPromise: () => Promise<unknown>, response: Response): Promise<unknown> {
+ 		const failedRequest = this.#getResponseRequest(response);
+-		let timeoutMilliseconds: number | undefined;
++		let timeoutMsMilliseconds: number | undefined;
+ 		try {
+-			timeoutMilliseconds = this.#getEffectiveTimeout();
++			timeoutMsMilliseconds = this.#getEffectiveTimeout();
+ 		} catch (error: unknown) {
+ 			await this.#throwProcessedError(error, failedRequest);
+ 		}
+@@ -891,9 +891,9 @@ export class Ky {
+ 
+ 		let result: unknown;
+ 		try {
+-			result = timeoutMilliseconds === undefined
++			result = timeoutMsMilliseconds === undefined
+ 				? await bodyPromise
+-				: await raceWithTimeout(bodyPromise, timeoutMilliseconds);
++				: await raceWithTimeout(bodyPromise, timeoutMsMilliseconds);
+ 		} catch (error: unknown) {
+ 			if (this.#userProvidedAbortSignal?.aborted) {
+ 				await this.#throwProcessedError(this.#userProvidedAbortSignal.reason, failedRequest);
+@@ -901,7 +901,7 @@ export class Ky {
+ 
+ 			if (this.#getRemainingTotalTimeout() !== 0) {
+ 				// A connection dropped while streaming the body surfaces as a raw runtime `TypeError`. Wrap it like fetch-phase network errors so it is recognizable and runs `beforeError` hooks.
+-				// This only happens on the awaited path, so a body that fails after the timeout already won does not run the hooks again.
++				// This only happens on the awaited path, so a body that fails after the timeoutMs already won does not run the hooks again.
+ 				if (isRawNetworkError(error)) {
+ 					await this.#throwProcessedError(new NetworkError(failedRequest, {cause: error as Error}), failedRequest);
+ 				}
+@@ -938,7 +938,7 @@ export class Ky {
+ 			return timedOut;
+ 		}
+ 
+-		let timeoutId: ReturnType<typeof setTimeout> | undefined;
++		let timeoutMsId: ReturnType<typeof setTimeout> | undefined;
+ 		let abortListener: (() => void) | undefined;
+ 		let operationPromise: Promise<T> | undefined;
+ 		try {
+@@ -961,12 +961,12 @@ export class Ky {
+ 				return await Promise.race([operationPromise, abortPromise]);
+ 			}
+ 
+-			const timeoutPromise = new Promise<typeof timedOut>(resolve => {
+-				timeoutId = setTimeout(() => {
++			const timeoutMsPromise = new Promise<typeof timedOut>(resolve => {
++				timeoutMsId = setTimeout(() => {
+ 					resolve(timedOut);
+ 				}, remainingTotal);
+ 			});
+-			const result = await Promise.race([operationPromise, timeoutPromise, abortPromise]);
++			const result = await Promise.race([operationPromise, timeoutMsPromise, abortPromise]);
+ 			if (result === timedOut || this.#getRemainingTotalTimeout() === 0) {
+ 				this.#abortController?.abort();
+ 
+@@ -982,7 +982,7 @@ export class Ky {
+ 			return result;
+ 		} catch (error: unknown) {
+ 			if (abortSignal?.aborted) {
+-				// The abort won the race, so whatever the operation eventually returns is discarded. Release its body, the same way the timeout path above does for a value it never consumed.
++				// The abort won the race, so whatever the operation eventually returns is discarded. Release its body, the same way the timeoutMs path above does for a value it never consumed.
+ 				if (operationPromise) {
+ 					releaseWhenSettled(operationPromise);
+ 				}
+@@ -997,7 +997,7 @@ export class Ky {
+ 
+ 			throw error;
+ 		} finally {
+-			clearTimeout(timeoutId);
++			clearTimeout(timeoutMsId);
+ 			if (abortListener) {
+ 				abortSignal?.removeEventListener('abort', abortListener);
+ 			}
+@@ -1144,7 +1144,7 @@ export class Ky {
+ 
+ 		this.#throwIfTotalTimeoutExhausted();
+ 
+-		// Reset abortController if it was aborted (happens on timeout retry) so hooks and the retried request get a fresh signal
++		// Reset abortController if it was aborted (happens on timeoutMs retry) so hooks and the retried request get a fresh signal
+ 		if (this.#abortController?.signal.aborted) {
+ 			this.#abortController = new globalThis.AbortController();
+ 			this.#options.signal = this.#createManagedSignal();
+@@ -1152,7 +1152,7 @@ export class Ky {
+ 		}
+ 
+ 		// Apply custom request from forced retry before beforeRetry hooks
+-		// Ensure the custom request has the correct managed signal for timeouts and user aborts
++		// Ensure the custom request has the correct managed signal for timeoutMss and user aborts
+ 		if (isForceRetryError(error) && error.customRequest) {
+ 			// Replacement Requests are authoritative by design. Do not rewrite headers here,
+ 			// even for cross-origin retries. Callers using `ky.retry({request})` explicitly
+@@ -1241,8 +1241,8 @@ export class Ky {
+ 			const {fetch} = this.#options;
+ 			const response = effectiveTimeout === undefined
+ 				? await fetch(request, nonRequestOptions)
+-				: await timeout(request, nonRequestOptions, this.#abortController, {
+-					timeout: effectiveTimeout,
++				: await timeoutMs(request, nonRequestOptions, this.#abortController, {
++					timeoutMs: effectiveTimeout,
+ 					fetch,
+ 				});
+ 
+@@ -1298,7 +1298,7 @@ export class Ky {
+ 		const mergedOptions = {...this.#options, ...options};
+ 		const updatedOptions = {...mergedOptions, ...withAttemptDefaults(mergedOptions)};
+ 		validateCallbackOptions(updatedOptions);
+-		validateTimeoutOption(updatedOptions.timeout, 'timeout');
++		validateTimeoutOption(updatedOptions.timeoutMs, 'timeoutMs');
+ 
+ 		Object.assign(this.#options, updatedOptions);
+ 		this.#cachedNormalizedOptions = undefined;
+@@ -1313,7 +1313,7 @@ export class Ky {
+ 				parseJson,
+ 				stringifyJson,
+ 				searchParams,
+-				timeout,
++				timeoutMs,
+ 				totalTimeout,
+ 				maxResponseSize,
+ 				throwHttpErrors,
+@@ -1338,7 +1338,7 @@ export class Ky {
+ 		this.#requestBodyCanBeCancelled = requestBodyCanBeCancelled;
+ 	}
+ 
+-	// A replacement `Request` from a hook or `ky.retry({request})` carries its own signal, so re-attach Ky's managed signal to keep timeouts and user aborts working. Request-like objects are used as-is since the `Request` constructor cannot copy them, so they keep whatever signal they carry, even on a retry after a timeout.
++	// A replacement `Request` from a hook or `ky.retry({request})` carries its own signal, so re-attach Ky's managed signal to keep timeoutMss and user aborts working. Request-like objects are used as-is since the `Request` constructor cannot copy them, so they keep whatever signal they carry, even on a retry after a timeoutMs.
+ 	#withManagedSignal(request: Request): Request {
+ 		if (!this.#options.signal || !(request instanceof globalThis.Request)) {
+ 			return request;

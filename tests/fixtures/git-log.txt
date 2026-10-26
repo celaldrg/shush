@@ -1,0 +1,371 @@
+commit 3541888878c4d303a8bc2ad61815f4e048f55a5d
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Fri Oct 9 13:29:22 2026 +0700
+
+    2.2.0
+
+commit 242c32728a4be7eacfa08bca1ae0b209444f83d1
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Fri Oct 9 04:21:37 2026 +0700
+
+    Let a `beforeRetry` hook change per-attempt options
+    
+    Fixes #885
+
+commit d9ddb03b444cbb6c10601003ede9269f3885a665
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Fri Oct 9 04:26:23 2026 +0700
+
+    Fix CI
+
+commit d93adf85d1a992eb3b0390200c7d19e37d16b890
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Fri Oct 9 03:52:52 2026 +0700
+
+    Run the browser tests and static checks once in CI
+    
+    Fixes #886
+
+commit a5ed57b1898d5eba75f1b0ffc8752518a75e0f07
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Thu Oct 8 02:05:39 2026 +0700
+
+    Refactor
+
+commit 7f0137dc42bbebc8652649a8139065c0dd4dff0b
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Tue Sep 29 16:06:52 2026 +0700
+
+    Report the sent request for a hook's response, and finish the cross-realm and `null` checks
+
+commit 13c8da559c940c4abd9c741a56ea4603c25a0383
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Tue Sep 29 16:06:51 2026 +0700
+
+    Stop surfacing progress callback errors
+
+commit 55599c89809c83bdae7f56b56ac8e2a5bd57b8d3
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sun Sep 27 08:03:58 2026 +0700
+
+    Run `beforeError` for a `beforeRetry` abort and share the body-wrapping check
+
+commit 3ded2aad45a1ef06eef5a91e3d853dd056376bf6
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 16:38:07 2026 +0700
+
+    Tweaks
+
+commit 692c43575422c7251baea01ef4179100e0215e1b
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 15:40:30 2026 +0700
+
+    Restore the retry-only marker condition and cover the remaining cases
+
+commit 58233f13203747698c99cc94a8b1b20a6c9925bf
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 15:07:19 2026 +0700
+
+    Explain both causes of a missing response and document the new validation
+
+commit 33462fcbf8f9001fc3d7a08576992098e571c5ff
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 15:00:46 2026 +0700
+
+    Reject a nullish hook list instead of treating it as absent
+
+commit 4cc6698cf35873f288177f4073cbc0bdbbf83374
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 14:30:50 2026 +0700
+
+    Recognise a cross-realm `beforeRetry` error and keep the retried error as the cause
+
+commit deb5a331d07b82dbc7eed308804626ea7f1d6383
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 14:11:22 2026 +0700
+
+    Release the body when a predicate throws, an abort wins, or a response cannot be decorated
+
+commit 6e275943bf7635e49f28d3b96e804ccd2c58f156
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 14:10:21 2026 +0700
+
+    Type-check `onDownloadProgress` before the request is sent
+
+commit d4ce7b12c5864a4af1427c573ce31a3c3d9a809b
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 14:04:01 2026 +0700
+
+    Fix docs
+
+commit 16b5936d6a275ce380c710e52e56c60f88850a3a
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 13:58:14 2026 +0700
+
+    Check the callbacks before the constructor uses them and reject an array `hooks`
+
+commit 74224d8b277147371ed6a6321e21c775dd941c71
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 13:56:49 2026 +0700
+
+    Make a non-Error progress-callback throw non-retriable too
+
+commit 619c42765fa22b02966f39443fbc28167b707caa
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 13:55:41 2026 +0700
+
+    Name the request that was sent on every `TimeoutError`
+
+commit 8a3a9cfecc72f034b5777c7dff913999bb1ad938
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 13:46:04 2026 +0700
+
+    Advertise the shortcut media type on the attempt that produced the response
+
+commit 6b6756935c2d62897c89eaeb79cc30bc8cf1f5da
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 10:15:56 2026 +0700
+
+    Validate the callbacks and the input
+
+commit 01b0839916e88f131c61222a18c394263828dd51
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 10:05:48 2026 +0700
+
+    Recognise another copy of Ky: the stop symbol and the retry marker
+
+commit 0b1f462c6d8976cfb67a9b4e6dad824b2409b44a
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 09:51:52 2026 +0700
+
+    Progress from a declared content-length, and a throwing callback is never retried
+
+commit bd0e26f27c2d94fafb01e981424e33d976a41655
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 09:41:25 2026 +0700
+
+    Accept a cross-realm `beforeError` error and validate a `ky.retry({delay})`
+
+commit 0a9cbb1a3f09f67f69cc4b45057fb38988881f49
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 09:27:45 2026 +0700
+
+    Report a `hooks` option that is not an object
+
+commit 3f0e330dba1bcce4900316857bd2d3087e79f95b
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 08:30:36 2026 +0700
+
+    Honour a late abort, count a no-op `content-encoding`, and keep wrapped headers immutable
+    
+    Count a no-op content-encoding and keep wrapped headers immutable
+    
+    A `content-length` header is valid for a response whose `content-encoding` is the registered no-op `identity`, so it is not discarded the way a real coding is.
+    
+    The `Response` constructor also rebuilds the header list under the mutable "response" guard, so a network response that arrived immutable would silently become mutable once wrapped. Reusing the original headers object keeps the guard.
+
+commit a0eeae216e1d40deb7c43cb9db03e581a27d8c6e
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 07:27:58 2026 +0700
+
+    Resolve leftover `replaceOption()` wrappers, name the request behind a response, and advertise the media types
+
+commit 23ca56439a82408169788dadac52717d5c6324b9
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 07:08:49 2026 +0700
+
+    Skip wrapping a body a hook read, and read a past reset epoch as a timestamp
+
+commit d89c8c8d700544deda79c2c7cc13f17171cfb398
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 06:10:13 2026 +0700
+
+    Count a compressed response as unknown, deep-copy context, and isolate `init` hook assignments
+
+commit 5b7080a13557e69f79c143c3ac029e58d3b4ed38
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 05:47:04 2026 +0700
+
+    Explain a missing response and give `extend(fn)` a deep copy of the parent defaults
+
+commit f3b1f7d9c688ca5d450475c8f57b1e92543cf7b6
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 05:24:28 2026 +0700
+
+    Skip upload progress wrapping for Request-like results and use the cross-realm guards
+
+commit 38bbe4ede31cadbf1e7d11787a22af424db33251
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 04:43:22 2026 +0700
+
+    Treat a null `searchParams` assigned by an `init` hook as absent
+
+commit d9774cf8d557a16f902263aea75a3bd112fb0b37
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 03:41:46 2026 +0700
+
+    Validate the retry options and forward every fetch-only extension
+
+commit f44674586a2f11317c1ea908fd7b2ec5d0a3eb40
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 26 03:23:12 2026 +0700
+
+    Reject invalid `timeout` and `totalTimeout` values
+
+commit 8d8e7a4db6bcb64a5922128995d311c63092fb6c
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Fri Sep 25 11:02:23 2026 +0700
+
+    Harden
+
+commit ff0155d6e99ec3ba6661189add9baa79ff4a52f4
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Mon Sep 21 11:21:05 2026 +0700
+
+    Normalize mutable init hook options
+
+commit 8778439c9ff51a50875b166bca1c40f94290be0a
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Mon Sep 21 01:20:03 2026 +0700
+
+    Improve docs
+
+commit fa0eac4cee101ed15649f09c4cd7a58aedb0be6d
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Mon Sep 21 01:04:34 2026 +0700
+
+    Skip a needless request rebuild, report an unknown total as zero, and fix two stale tests
+
+commit a2dfbd7ec108e733d665957ebf945ed7657a52ff
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Mon Sep 21 01:02:49 2026 +0700
+
+    Surface progress callback errors instead of a NetworkError
+    
+    A throwing `onUploadProgress` callback errors the request body stream. The runtime reports that stream failure as a generic network error, so Ky wrapped it in a `NetworkError` and the callback error was replaced by a misleading message. `isNetworkError()` then returned true for a user error, which also made the failure retriable.
+
+commit 83c711cb7f051beb4533a601d54f28eeb0ad1eb3
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Fri Sep 18 18:25:54 2026 +0700
+
+    Detect request stream support in Bun and Deno, and cover the pipeline with tests
+
+commit de278ae6e003a5a7d7e3c5dba24da5587ac28752
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Thu Sep 17 19:44:58 2026 +0700
+
+    Preserve a user cancellation across retry decisions and report the bytes that arrived
+
+commit ec3d17f90943d99aec96da2021d69155c95a19b8
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Thu Sep 17 17:40:45 2026 +0700
+
+    Release the bodies a caller cannot reach and stop sharing search parameters
+
+commit d1c921f3b8d4b934d2dc0b1cc6a51738126099a7
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Thu Sep 17 12:21:14 2026 +0700
+
+    Honour a server retry-timing header when `shouldRetry` allows the retry
+
+commit 0d59458a0a58e1c3d7c6db0ab17ed5c7cd671e47
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Mon Sep 14 15:16:48 2026 +0200
+
+    Add `maxResponseSize` option
+
+commit 071a9b97d3d149a576c91e0b92532f11aab456c5
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Mon Sep 14 02:20:54 2026 +0200
+
+    Preserve Request input abort signals
+
+commit d6e049a690c7562a72e22d0b1eb57a2d4d19745e
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 15:38:21 2026 +0200
+
+    Resolve retry replacements without parent retry options
+
+commit 323b98f0a326f3967dc16acd34f2755da3ebd63a
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 13:15:56 2026 +0200
+
+    Run beforeError hooks for body reader failures
+
+commit a8753dcc9a4e8771d4226f9b6d196064325a0fbc
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 13:08:12 2026 +0200
+
+    Preserve symbol-keyed context in init hooks
+
+commit b28ba903c322b84b5d9cf47a6fc0af6a61d5954f
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 12:55:52 2026 +0200
+
+    Simplify request state and retry normalization
+
+commit cd1dba0e4502d95be93846e6c77bf0479dc0e385
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 12:29:30 2026 +0200
+
+    More tests
+
+commit e58817d490cba99c97820a39f239272ffdb92881
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 05:01:00 2026 +0200
+
+    Type custom fetch callbacks with Request inputs
+
+commit 52b8f93e076e1614a3f62162052a8723b10ca5ac
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 04:49:43 2026 +0200
+
+    Allow customizing error names in TypeScript
+
+commit f4886ca8f58c1f9f950124d9edef6bb0f60bb6ef
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 04:36:56 2026 +0200
+
+    Preserve JSON types when cloning requests and responses
+
+commit 51b31777058c13f24b640a0ef1a47565f011e080
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 03:46:21 2026 +0200
+
+    Support readonly inputs and explicit undefined in TypeScript options
+
+commit 481f6f731b0c311bc2f677604aca3595558b22d1
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 03:43:34 2026 +0200
+
+    Fix bytes shortcut return type for Blob and Response compatibility
+
+commit 96a25cce552a0128653ca8833e95291ae5082509
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 03:40:11 2026 +0200
+
+    Preserve abort reasons while reading HTTP error bodies
+
+commit e4269f070384e60e1c3fd3be4de9e199c07814c9
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 03:34:52 2026 +0200
+
+    Respect custom HTTP method case when matching retries
+
+commit 82fa84c7d114f7987ed019be61417288ccc0876e
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 03:14:47 2026 +0200
+
+    Enforce total timeout after fetch and body processing
+
+commit d636438b2dde678f153af2c21f37116f4d064271
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 03:12:19 2026 +0200
+
+    Avoid misidentifying unrelated errors as Ky errors
+
+commit 87a96db81480f1cb71e2cd51bce8c454d32b29ee
+Author: Sindre Sorhus <sindresorhus@gmail.com>
+Date:   Sat Sep 12 03:06:39 2026 +0200
+
+    Preserve non-Error values in retry errors and hooks

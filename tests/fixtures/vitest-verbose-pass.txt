@@ -1,0 +1,84 @@
+
+ RUN  v4.1.12 /workspace/turkiye-mcp
+
+ ✓ tests/validators.test.ts > TCKN > accepts a checksum-valid number 2ms
+ ✓ tests/validators.test.ts > TCKN > rejects a wrong check digit 0ms
+ ✓ tests/validators.test.ts > TCKN > rejects a leading zero 0ms
+ ✓ tests/validators.test.ts > TCKN > rejects wrong length 0ms
+ ✓ tests/validators.test.ts > TCKN > ignores spaces 0ms
+ ✓ tests/validators.test.ts > VKN > computes the check digit consistently for 0010048920 0ms
+ ✓ tests/validators.test.ts > VKN > computes the check digit consistently for 1234567890 0ms
+ ✓ tests/validators.test.ts > VKN > matches known stdnum-valid values 0ms
+ ✓ tests/validators.test.ts > VKN > treats 11 digits as TCKN 1ms
+ ✓ tests/validators.test.ts > VKN > rejects wrong length 0ms
+ ✓ tests/validators.test.ts > IBAN > validates and finds the bank (Ziraat) 1ms
+ ✓ tests/validators.test.ts > IBAN > validates Garanti and ING 0ms
+ ✓ tests/validators.test.ts > IBAN > rejects a typo 0ms
+ ✓ tests/validators.test.ts > IBAN > rejects non-TR IBANs 0ms
+ ✓ tests/validators.test.ts > IBAN > rejects wrong length 0ms
+ ✓ tests/validators.test.ts > IBAN > accepts a valid IBAN with an unknown bank code and says so 0ms
+ ✓ tests/validators.test.ts > IBAN > bankByCode accepts several code forms 0ms
+ ✓ tests/earthquakes.test.ts > Kandilli parser > parses every event line 2ms
+ ✓ tests/earthquakes.test.ts > Kandilli parser > converts Türkiye time to UTC 1ms
+ ✓ tests/earthquakes.test.ts > Kandilli parser > prefers Mw over ML 0ms
+ ✓ tests/earthquakes.test.ts > Kandilli parser > handles revised (REVIZE) lines 0ms
+ ✓ tests/earthquakes.test.ts > Kandilli parser > parses coordinates and depth 0ms
+ ✓ tests/earthquakes.test.ts > AFAD mapping > treats AFAD timestamps as UTC 0ms
+ ✓ tests/tcmb.test.ts > TCMB > parses a real bulletin 3ms
+ ✓ tests/tcmb.test.ts > TCMB > converts USD to TRY 0ms
+ ✓ tests/tcmb.test.ts > TCMB > handles 100-unit currencies (JPY) 0ms
+ ✓ tests/tcmb.test.ts > TCMB > cross-converts via TRY 0ms
+ ✓ tests/tcmb.test.ts > TCMB > rejects unknown currencies 1ms
+ ✓ tests/tcmb.test.ts > TCMB > builds historical URLs 0ms
+ ✓ tests/tcmb.test.ts > TCMB > walks back from a weekend to the previous bulletin 12ms
+ ✓ tests/holidays.test.ts > public holidays > 2026 Ramazan Bayramı (Diyanet: 20-22 March, arefe 19 March) 9ms
+ ✓ tests/holidays.test.ts > public holidays > 2026 Kurban Bayramı (Diyanet: 27-30 May) 0ms
+ ✓ tests/holidays.test.ts > public holidays > 2027 Ramazan Bayramı starts on 9 March (Diyanet table) 0ms
+ ✓ tests/holidays.test.ts > public holidays > 2033 has two Ramazan Bayramı 2ms
+ ✓ tests/holidays.test.ts > public holidays > 2025 total holiday entries 1ms
+ ✓ tests/holidays.test.ts > public holidays > rejects unsupported years 1ms
+ ✓ tests/holidays.test.ts > dayInfo / business days > Republic Day is not a business day 0ms
+ ✓ tests/holidays.test.ts > dayInfo / business days > Oct 28 is a half day but still a business day 0ms
+ ✓ tests/holidays.test.ts > dayInfo / business days > weekend 1ms
+ ✓ tests/holidays.test.ts > dayInfo / business days > adds business days across Republic Day and a weekend 1ms
+ ✓ tests/holidays.test.ts > dayInfo / business days > subtracts business days 1ms
+ ✓ tests/holidays.test.ts > dayInfo / business days > counts business days in (start, end] 3ms
+ ↓ tests/live.test.ts > live APIs > TCMB latest
+ ↓ tests/live.test.ts > live APIs > TCMB historical (weekend falls back)
+ ↓ tests/live.test.ts > live APIs > AFAD
+ ↓ tests/live.test.ts > live APIs > Kandilli
+ ↓ tests/live.test.ts > live APIs > prayer times
+ ↓ tests/live.test.ts > live APIs > weather
+ ✓ tests/geo-text.test.ts > provinces > has 81 provinces and 973 districts 2ms
+ ✓ tests/geo-text.test.ts > provinces > finds İstanbul by istanbul 1ms
+ ✓ tests/geo-text.test.ts > provinces > finds İstanbul by İSTANBUL 0ms
+ ✓ tests/geo-text.test.ts > provinces > finds İstanbul by Istanbul 0ms
+ ✓ tests/geo-text.test.ts > provinces > finds İstanbul by 34 0ms
+ ✓ tests/geo-text.test.ts > provinces > finds by plate with leading zero 0ms
+ ✓ tests/geo-text.test.ts > provinces > finds districts with duplicate names 10ms
+ ✓ tests/geo-text.test.ts > provinces > is diacritic-insensitive 5ms
+ ✓ tests/geo-text.test.ts > Turkish text > upper-cases i correctly 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > lower-cases I correctly 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > title case 1ms
+ ✓ tests/geo-text.test.ts > Turkish text > slug 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(0) 1ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(1) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(10) 1ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(100) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(101) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(1000) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(1001) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(1250) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(2000) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(100000) 3ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(1000000) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(-5) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > numberToWords(1234567890) 0ms
+ ✓ tests/geo-text.test.ts > Turkish text > amount in words 1ms
+ ✓ tests/geo-text.test.ts > Turkish text > rejects more than two decimals 1ms
+
+ Test Files  5 passed | 1 skipped (6)
+      Tests  69 passed | 6 skipped (75)
+   Start at  13:53:55
+   Duration  350ms (transform 389ms, setup 0ms, import 552ms, tests 82ms, environment 0ms)
+
