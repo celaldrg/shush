@@ -6,6 +6,7 @@ Works with **any agent**: as an MCP server (Claude Code, Cursor, VS Code, Codex,
 
 [![CI](https://github.com/celaldrg/shush/actions/workflows/ci.yml/badge.svg)](https://github.com/celaldrg/shush/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/celaldrg/shush?sort=semver)](https://github.com/celaldrg/shush/releases)
 ![Node >= 20](https://img.shields.io/badge/node-%3E%3D20-339933)
 
 ```text
