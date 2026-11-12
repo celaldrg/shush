@@ -3,8 +3,8 @@
 Real output captured on 2026-10-26 with `node scripts/demo.mjs`, which starts `shush mcp` over stdio with the official MCP client SDK and calls the `run` tool on real projects (a TypeScript repo, a small Go module with a failing test, a Rust crate with a failing test, and a clone of sindresorhus/ky). Nothing is edited.
 
 ```text
-> run "npx vitest run --reporter=verbose"  (cwd /workspace/turkiye-mcp)
- RUN  v4.1.12 /workspace/turkiye-mcp
+> run "npx vitest run --reporter=verbose"  (cwd ~/projects/app)
+ RUN  v4.1.12 ~/projects/app
 
  Test Files  5 passed | 1 skipped (6)
       Tests  69 passed | 6 skipped (75)

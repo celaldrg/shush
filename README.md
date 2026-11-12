@@ -147,8 +147,8 @@ If you want maximum coverage and automatic interception in a supported agent, us
 Real transcript of an MCP client calling `run` on real projects: [docs/demo-transcript.md](docs/demo-transcript.md). Excerpt:
 
 ```text
-> run "npx vitest run --reporter=verbose"  (cwd /workspace/turkiye-mcp)
- RUN  v4.1.12 /workspace/turkiye-mcp
+> run "npx vitest run --reporter=verbose"  (cwd ~/projects/app)
+ RUN  v4.1.12 ~/projects/app
 
  Test Files  5 passed | 1 skipped (6)
       Tests  69 passed | 6 skipped (75)

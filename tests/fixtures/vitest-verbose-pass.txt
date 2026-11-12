@@ -1,5 +1,5 @@
 
- RUN  v4.1.12 /workspace/turkiye-mcp
+ RUN  v4.1.12 ~/projects/app
 
  ✓ tests/validators.test.ts > TCKN > accepts a checksum-valid number 2ms
  ✓ tests/validators.test.ts > TCKN > rejects a wrong check digit 0ms
