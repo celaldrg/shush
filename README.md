@@ -100,7 +100,8 @@ and you need it, call `read_full` with the id it prints.
 ### As a CLI (any agent, any shell, CI logs)
 
 ```bash
-npm install -g github:celaldrg/shush   # or use npx -y github:celaldrg/shush ...
+npm install -g https://github.com/celaldrg/shush/releases/download/v0.1.0/shush-mcp-0.1.0.tgz
+# or skip the install: npx -y github:celaldrg/shush ...
 
 shush npm test                         # run, compact output, same exit code
 shush "npm ci && npm run build"        # one quoted argument runs through your shell
