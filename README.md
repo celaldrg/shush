@@ -1,13 +1,17 @@
-# shush 🤫
+<p align="center">
+  <img src="assets/banner.webp" alt="shush" width="100%">
+</p>
 
 **Cut the noise from command output before it reaches your AI agent.** Passing tests, progress bars, download logs, git chatter and repeated lines go; every error, failure and summary stays. Anything hidden is one call away.
 
 Works with **any agent**: as an MCP server (Claude Code, Cursor, VS Code, Codex, Gemini CLI, Kiro, Junie, Zed…) or as a plain CLI prefix (`shush npm test`). MIT, no daemon, no proxy, no model download, no API keys.
 
-[![CI](https://github.com/celaldrg/shush/actions/workflows/ci.yml/badge.svg)](https://github.com/celaldrg/shush/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/celaldrg/shush?sort=semver)](https://github.com/celaldrg/shush/releases)
-![Node >= 20](https://img.shields.io/badge/node-%3E%3D20-339933)
+<p align="center">
+  <a href="https://github.com/celaldrg/shush/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/celaldrg/shush/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <a href="https://github.com/celaldrg/shush/releases"><img alt="Release" src="https://img.shields.io/github/v/release/celaldrg/shush?sort=semver"></a>
+  <img alt="Node >= 20" src="https://img.shields.io/badge/node-%3E%3D20-339933">
+</p>
 
 ```text
 $ shush go test -v ./...
@@ -18,6 +22,11 @@ FAIL	example.com/calc	0.002s
 FAIL
 [shush] exit 1 · 880 → 57 tokens (-94%) · hidden: 65 passing test lines · full output: shush show 20261026-140034-0d6e5b
 ```
+
+<p align="center">
+  <img src="assets/terminal-demo.webp" alt="shush, real terminal output" width="860">
+  <br><sub>Real output: <code>shush go test -v ./...</code> on a real Go project (<a href="https://github.com/celaldrg/agentprs">agentprs</a>).</sub>
+</p>
 
 ## Why
 
@@ -144,6 +153,11 @@ Credit where due: shush is **inspired by [rtk](https://github.com/rtk-ai/rtk)** 
 If you want maximum coverage and automatic interception in a supported agent, use rtk or headroom. If you want something small, MIT, auditable in one sitting, that works the same in every MCP client and never changes what you ran, use shush.
 
 ## Demo
+
+<p align="center">
+  <img src="assets/demo.gif" alt="shush running in a terminal" width="860">
+  <br><sub>Recorded with <a href="https://github.com/charmbracelet/vhs">vhs</a>.</sub>
+</p>
 
 Real transcript of an MCP client calling `run` on real projects: [docs/demo-transcript.md](docs/demo-transcript.md). Excerpt:
 
